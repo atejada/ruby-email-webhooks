@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 source "https://rubygems.org"
+ruby "3.2.2"
 
 gem 'nylas', '6.0.0.beta.1'
 gem "sinatra", '3.1.0'
