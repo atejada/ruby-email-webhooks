@@ -42,7 +42,8 @@ GEM
     yajl-ruby (1.4.3)
 
 PLATFORMS
-  arm64-darwin-22
+  ruby
+  x86_64-linux
 
 DEPENDENCIES
   nylas (= 6.0.0.beta.1)
@@ -55,4 +56,4 @@ RUBY VERSION
    ruby 3.2.2p53
 
 BUNDLED WITH
-   2.4.22
+   2.1.2
