@@ -31,8 +31,13 @@ post '/webhook' do
   model = JSON.parse(request.body.read)
   puts model
   message = nylas.messages.find(identifier: ENV['GRANT_ID'], message_id: model['data']['object']['message_id'])
-  message_hook = message_opened.new(message[:id], message[:date], model['data']['object']['label'], message[:subject], model['data']['object']['message_data']['count'])
-  messages_opened.append(message_hook)
+  puts message[:id] 
+  puts message[:date] 
+  puts model['data']['object']['label']
+  puts message[:subject]
+  puts model['data']['object']['message_data']['count']  
+  #message_hook = message_opened.new(message[:id], message[:date], model['data']['object']['label'], message[:subject], model['data']['object']['message_data']['count'])
+  #messages_opened.append(message_hook)
   status 200
   'Webhook received'
 end
