@@ -10,8 +10,8 @@
 </style>
 <title>Nylas Webhooks</title>
 <h1 class='h1'>Webhooks</h1>
-<% message_hook.each do |item| %>
-  <div class='message_hook'>
+<% messages_opened.each do |item| %>
+  <div class='messages_opened'>
     <p><b>Id:</b> <%= item.id %> | <b>Date:</b> <%= item.date %> | <b>Label:</b> <%= item.label %> | 
           <b>Subject:</b> <%= item.subject %> | <b>Count:</b> <%= item.count %></p>
   </div>

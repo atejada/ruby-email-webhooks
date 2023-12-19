@@ -37,7 +37,7 @@ post '/webhook' do
 end
 
 get '/' do
-  erb :main, locals: { message_hook: message_hook }
+  erb :main, locals: { messages_opened: messages_opened }
 end
 
 # We generate a signature with our client secret and compare it with the one from Nylas
