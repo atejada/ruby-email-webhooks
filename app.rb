@@ -40,7 +40,7 @@ post '/webhook' do
                                                                             model['data']['object']['message_data']['count'])
               messages_opened.append(message_hook)
       when "message.link_clicked"
-               link_hook = link_clicked.new(model['id'], Time.at(message[:date]).strftime("%d/%m/%Y at %H:%M:%S"), 
+               link_hook = link_clicked.new(model['id'], Time.at(model['time']).strftime("%d/%m/%Y at %H:%M:%S"), 
                                                         model['data']['object']['label'],model['data']['object']['link_data']['url'],
                                                         model['data']['object']['link_data']['count'])
               links_clicked.append(link_hook)
