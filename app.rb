@@ -7,6 +7,8 @@ require 'sinatra/config_file'
 
 message_opened = Data.define(:id, :date, :label, :subject, :count)
 messages_opened = []
+link_clicked = Data.define(:id, :date, :label, :link, :count)
+links_clicked = []
 
 get '/webhook' do
   params['challenge'].to_s if params.include? 'challenge'
@@ -29,16 +31,26 @@ post '/webhook' do
   # We read the webhook information and store it on the data class
   request.body.rewind
   model = JSON.parse(request.body.read)
-  puts model
-  message, _ = nylas.messages.find(identifier: ENV['GRANT_ID'], message_id: model['data']['object']['message_id'])
-  message_hook = message_opened.new(message[:id], message[:date], model['data']['object']['label'], message[:subject], model['data']['object']['message_data']['count'])
-  messages_opened.append(message_hook)
+  case model['type']
+      when "message.opened"
+          message, _ = nylas.messages.find(identifier: ENV['GRANT_ID'], message_id: model['data']['object']['message_id'])
+          message_hook = message_opened.new(message[:id], Time.at(message[:date]).strftime("%d/%m/%Y at %H:%M:%S"), 
+                                                                            model['data']['object']['label'], message[:subject], 
+                                                                            model['data']['object']['message_data']['count'])
+          messages_opened.append(message_hook)
+      when "message.link_clicked"
+          link_hook = link_clicked.new(message[:id], Time.at(message[:date]).strftime("%d/%m/%Y at %H:%M:%S"), 
+                                                        model['data']['object']['label'],model['data']['object']['link_data']['url'],
+                                                        model['data']['object']['link_data']['count'])
+          links_clicked.append(link_hook)
+  end
+
   status 200
   'Webhook received'
 end
 
 get '/' do
-  erb :main, locals: { messages_opened: messages_opened }
+  erb :main, locals: { messages_opened: messages_opened, links_clicked: links_clicked }
 end
 
 # We generate a signature with our client secret and compare it with the one from Nylas

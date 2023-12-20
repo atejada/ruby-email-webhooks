@@ -1,8 +1,13 @@
 <style>
-.webhook {
+.messages_opened {
 	padding: 10px;
     margin: 5px;
-    background-color: #f3f3f3
+    background-color: #F3F3F3
+}
+.links_clicked {
+	padding: 10px;
+    margin: 5px;
+    background-color: #E6E2E2
 }
 .h1 {
     text-align: center;
@@ -14,5 +19,11 @@
   <div class='messages_opened'>
     <p><b>Id:</b> <%= item.id %> | <b>Date:</b> <%= item.date %> | <b>Label:</b> <%= item.label %> | 
           <b>Subject:</b> <%= item.subject %> | <b>Count:</b> <%= item.count %></p>
+  </div>
+<br>
+<% links_clicked.each do |item| %>
+  <div class='messages_opened'>
+    <p><b>Id:</b> <%= item.id %> | <b>Date:</b> <%= item.date %> | <b>Label:</b> <%= item.label %> | 
+          <b>Link:</b> <%= item.link %> | <b>Count:</b> <%= item.count %></p>
   </div>
 <% end %>
