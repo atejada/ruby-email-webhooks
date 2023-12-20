@@ -34,12 +34,12 @@ post '/webhook' do
   case model['type']
       when "message.opened"
               message, _ = nylas.messages.find(identifier: ENV['GRANT_ID'], message_id: model['data']['object']['message_id'])
-              message_hook = message_opened.new(message[:id], Time.at(message[:date]).strftime("%d/%m/%Y at %H:%M:%S"), 
+              message_hook = message_opened.new(model['id'], Time.at(message[:date]).strftime("%d/%m/%Y at %H:%M:%S"), 
                                                                             model['data']['object']['label'], message[:subject], 
                                                                             model['data']['object']['message_data']['count'])
               messages_opened.append(message_hook)
       when "message.link_clicked"
-               link_hook = link_clicked.new(message[:id], Time.at(message[:date]).strftime("%d/%m/%Y at %H:%M:%S"), 
+               link_hook = link_clicked.new(model['id'], Time.at(message[:date]).strftime("%d/%m/%Y at %H:%M:%S"), 
                                                         model['data']['object']['label'],model['data']['object']['link_data']['url'],
                                                         model['data']['object']['link_data']['count'])
               links_clicked.append(link_hook)
