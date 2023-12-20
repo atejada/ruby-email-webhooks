@@ -31,6 +31,7 @@ post '/webhook' do
   # We read the webhook information and store it on the data class
   request.body.rewind
   model = JSON.parse(request.body.read)
+  puts model
   case model['type']
       when "message.opened"
               message, _ = nylas.messages.find(identifier: ENV['GRANT_ID'], message_id: model['data']['object']['message_id'])
