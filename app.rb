@@ -10,11 +10,11 @@ messages_opened = []
 link_clicked = Data.define(:id, :date, :label, :link, :count)
 links_clicked = []
 
-get '/webhook' do
+get '/webhooks' do
   params['challenge'].to_s if params.include? 'challenge'
 end
 
-post '/webhook' do
+post '/webhooks' do
   # We need to verify that the signature comes from Nylas
   is_genuine = verify_signature(request.body.read, ENV['CLIENT_SECRET'],
                                 request.env['HTTP_X_NYLAS_SIGNATURE'])
